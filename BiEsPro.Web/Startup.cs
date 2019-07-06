@@ -30,11 +30,11 @@ namespace BiEsPro.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
-            {
+ {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+     options.MinimumSameSitePolicy = SameSiteMode.None;
+ });
 
             services.AddDbContext<BiEsProDbContext>(options =>
                 options.UseSqlServer(
@@ -49,6 +49,14 @@ namespace BiEsPro.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                using (var context = scope.ServiceProvider.GetService<BiEsProDbContext>())
+                {
+                    context.Database.Migrate();
+                }
+
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
