@@ -13,6 +13,9 @@ namespace BiEsPro.Data
         {
         }
 
+        public DbSet<BiEsProUser> MyProperty { get; set; }
+
+
 
     }
 }
