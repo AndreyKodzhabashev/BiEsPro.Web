@@ -40,10 +40,35 @@ namespace BiEsPro.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required(AllowEmptyStrings = false)]
+            [StringLength(5, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+            
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "E-mail")]
             public string Email { get; set; }
+
+            [Required(AllowEmptyStrings = false)]
+            [StringLength(15, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required(AllowEmptyStrings = false)]
+            [StringLength(15, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [RegularExpression(@"[0-9]{9,20", ErrorMessage = "The phone number is between 9 and 20 digits.")]
+            [Display(Name = "Phone number")]
+            public string Phonenumber { get; set; }
+
+            [Required]
+            [RegularExpression(@"[0-9]{10}", ErrorMessage = "Unique Civil Number(EGN) should be 10 digits.")]
+            [Display(Name = "Unique Civil Number (EGN)")]
+            public string UCN { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
