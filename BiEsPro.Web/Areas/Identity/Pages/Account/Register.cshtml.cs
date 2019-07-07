@@ -41,10 +41,10 @@ namespace BiEsPro.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required(AllowEmptyStrings = false)]
-            [StringLength(5, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
             [Display(Name = "Username")]
             public string Username { get; set; }
-            
+
             [Required]
             [EmailAddress]
             [Display(Name = "E-mail")]
@@ -61,7 +61,7 @@ namespace BiEsPro.Web.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [RegularExpression(@"[0-9]{9,20", ErrorMessage = "The phone number is between 9 and 20 digits.")]
+            [RegularExpression(@"[0-9]{9,20}", ErrorMessage = "The phone number is between 9 and 20 digits.")]
             [Display(Name = "Phone number")]
             public string Phonenumber { get; set; }
 
@@ -92,7 +92,15 @@ namespace BiEsPro.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new BiEsProUser { UserName = Input.Email, Email = Input.Email };
+                var user = new BiEsProUser
+                {
+                    UserName = Input.Username,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Ucn = Input.UCN,
+                    PhoneNumber = Input.Phonenumber
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
