@@ -1,5 +1,7 @@
 ﻿using BiEsPro.Data.Common.Models;
 using BiEsPro.Data.Models;
+using BiEsPro.Data.Models.FluentAPIModelConfigurations;
+using BiEsPro.Data.Models.ItemElements;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,12 +14,21 @@ namespace BiEsPro.Data
         public BiEsProDbContext()
         {
         }
-        public BiEsProDbContext(DbContextOptions<BiEsProDbContext> options):base(options)
+        public BiEsProDbContext(DbContextOptions<BiEsProDbContext> options) : base(options)
         {
         }
 
         public DbSet<BiEsProUser> MyProperty { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new ItemConfig());
+
+            base.OnModelCreating(builder);
+        }
         public override int SaveChanges()
         {
             this.ApplyAuditInfoRules();

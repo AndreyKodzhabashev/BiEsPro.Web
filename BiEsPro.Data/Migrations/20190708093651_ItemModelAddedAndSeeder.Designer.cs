@@ -4,14 +4,16 @@ using BiEsPro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BiEsPro.Data.Migrations
 {
     [DbContext(typeof(BiEsProDbContext))]
-    partial class BiEsProDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190708093651_ItemModelAddedAndSeeder")]
+    partial class ItemModelAddedAndSeeder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

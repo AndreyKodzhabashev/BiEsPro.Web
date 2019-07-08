@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BiEsPro.Data;
 using BiEsPro.Data.Models;
+using BiEsPro.Web.Extensions;
 
 namespace BiEsPro.Web
 {
@@ -77,6 +78,7 @@ namespace BiEsPro.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSeeder();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

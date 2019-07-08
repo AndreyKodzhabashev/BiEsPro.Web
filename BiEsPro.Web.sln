@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiEsPro.Data.Models", "BiEs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiEsPro.Data.Common", "BiEsPro.Data.Common\BiEsPro.Data.Common.csproj", "{A5DA4620-9790-469F-B677-D9D9CF7FFEBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiEsPro.Services", "BiEsPro.Services\BiEsPro.Services.csproj", "{6AA9286C-DBAC-41B7-9762-1AFE06E83DB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{A5DA4620-9790-469F-B677-D9D9CF7FFEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5DA4620-9790-469F-B677-D9D9CF7FFEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5DA4620-9790-469F-B677-D9D9CF7FFEBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA9286C-DBAC-41B7-9762-1AFE06E83DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA9286C-DBAC-41B7-9762-1AFE06E83DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA9286C-DBAC-41B7-9762-1AFE06E83DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA9286C-DBAC-41B7-9762-1AFE06E83DB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
