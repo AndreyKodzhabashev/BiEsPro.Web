@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BiEsPro.Data;
 using BiEsPro.Data.Models;
 using BiEsPro.Web.Extensions;
+using BiEsPro.Services.ItemsService;
 
 namespace BiEsPro.Web
 {
@@ -53,6 +54,8 @@ namespace BiEsPro.Web
                 options.Password.RequiredLength = 3;
                 options.Password.RequiredUniqueChars = 0;
             });
+            services.AddTransient<IItemsService, ItemsService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

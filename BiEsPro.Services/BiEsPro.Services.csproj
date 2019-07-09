@@ -10,6 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BiEsPro.Data.Models\BiEsPro.Data.Models.csproj" />
+    <ProjectReference Include="..\BiEsPro.Data\BiEsPro.Data.csproj" />
   </ItemGroup>
 
 </Project>

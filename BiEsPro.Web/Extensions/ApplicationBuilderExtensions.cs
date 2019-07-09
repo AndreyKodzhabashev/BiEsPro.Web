@@ -11,6 +11,8 @@ namespace BiEsPro.Web.Extensions
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder builder { get; set; }
+
+
         public static void UseSeeder(this IApplicationBuilder app)
         {
             var types = Assembly

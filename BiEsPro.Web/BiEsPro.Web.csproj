@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BiEsPro.Data\BiEsPro.Data.csproj" />
+    <ProjectReference Include="..\BiEsPro.Services\BiEsPro.Services.csproj" />
   </ItemGroup>
 
 </Project>
