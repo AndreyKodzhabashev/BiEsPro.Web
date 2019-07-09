@@ -392,14 +392,14 @@ namespace BiEsPro.Data.Migrations
             modelBuilder.Entity("BiEsPro.Data.Models.ClientElements.ClientCompany", b =>
                 {
                     b.HasOne("BiEsPro.Data.Models.ClientElements.City", "City")
-                        .WithMany()
+                        .WithMany("Companies")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BiEsPro.Data.Models.ClientElements.VatSufix", "VatRegistration")
-                        .WithMany()
+                        .WithMany("Companies")
                         .HasForeignKey("VatRegistrationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiEsPro.Data.Models.ItemElements.Item", b =>

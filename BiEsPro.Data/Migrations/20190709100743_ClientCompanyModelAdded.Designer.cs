@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiEsPro.Data.Migrations
 {
     [DbContext(typeof(BiEsProDbContext))]
-    [Migration("20190709095307_ClientCompanyModelAdded")]
+    [Migration("20190709100743_ClientCompanyModelAdded")]
     partial class ClientCompanyModelAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -394,14 +394,14 @@ namespace BiEsPro.Data.Migrations
             modelBuilder.Entity("BiEsPro.Data.Models.ClientElements.ClientCompany", b =>
                 {
                     b.HasOne("BiEsPro.Data.Models.ClientElements.City", "City")
-                        .WithMany()
+                        .WithMany("Companies")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BiEsPro.Data.Models.ClientElements.VatSufix", "VatRegistration")
-                        .WithMany()
+                        .WithMany("Companies")
                         .HasForeignKey("VatRegistrationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiEsPro.Data.Models.ItemElements.Item", b =>

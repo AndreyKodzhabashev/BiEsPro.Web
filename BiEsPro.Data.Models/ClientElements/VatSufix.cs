@@ -15,6 +15,6 @@ namespace BiEsPro.Data.Models.ClientElements
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
-        IEnumerable<ClientCompany> Companies { get; set; }
+        public IEnumerable<ClientCompany> Companies { get; set; }
     }
 }

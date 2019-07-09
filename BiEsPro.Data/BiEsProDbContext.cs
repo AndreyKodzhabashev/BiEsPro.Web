@@ -34,6 +34,7 @@ namespace BiEsPro.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ItemConfig());
+            builder.ApplyConfiguration(new ClientCompanyConfig());
 
             base.OnModelCreating(builder);
         }
