@@ -1,5 +1,6 @@
 ﻿using BiEsPro.Data.Common.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BiEsPro.Data.Models.ClientElements
 {
@@ -11,6 +12,7 @@ namespace BiEsPro.Data.Models.ClientElements
             this.Companies = new HashSet<ClientCompany>();
         }
 
+        [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
         IEnumerable<ClientCompany> Companies { get; set; }

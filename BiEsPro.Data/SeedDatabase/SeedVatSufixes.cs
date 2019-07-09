@@ -14,9 +14,10 @@ namespace BiEsPro.Data.SeedDatabase
             {
                 if (context.Colors.Any() == false)
                 {
+                    await context.VatSufixes.AddAsync(new VatSufix { Name = "NotRegistered" });
                     await context.VatSufixes.AddAsync(new VatSufix { Name = "BG" });
                     await context.VatSufixes.AddAsync(new VatSufix { Name = "CZ" });
-                   
+
                     context.SaveChanges();
                 }
             }
