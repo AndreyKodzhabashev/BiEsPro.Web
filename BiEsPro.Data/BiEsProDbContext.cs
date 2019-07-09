@@ -1,5 +1,6 @@
 ﻿using BiEsPro.Data.Common.Models;
 using BiEsPro.Data.Models;
+using BiEsPro.Data.Models.ClientElements;
 using BiEsPro.Data.Models.FluentAPIModelConfigurations;
 using BiEsPro.Data.Models.ItemElements;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,9 +20,16 @@ namespace BiEsPro.Data
         }
 
         public DbSet<BiEsProUser> MyProperty { get; set; }
+
+        // DbSets for Items
         public DbSet<Color> Colors { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
+
+        // DbSets for ClientCompanies
+        public DbSet<City> Cities { get; set; }
+        public DbSet<VatSufix> VatSufixes { get; set; }
+        public DbSet<ClientCompany> ClientCompanies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
