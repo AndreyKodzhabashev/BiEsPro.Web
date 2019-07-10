@@ -7,23 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BiEsPro.Data;
 using BiEsPro.Data.Models.ClientElements;
+using BiEsPro.Services.ClientCompaniesService;
 
 namespace BiEsPro.Web.Controllers
 {
     public class ClientCompaniesController : Controller
     {
         private readonly BiEsProDbContext _context;
+        private readonly IClientCompaniesService service;
 
-        public ClientCompaniesController(BiEsProDbContext context)
+        public ClientCompaniesController(BiEsProDbContext context, IClientCompaniesService service)
         {
             _context = context;
+            this.service = service;
         }
 
         // GET: ClientCompanies
         public async Task<IActionResult> Index()
         {
-            var biEsProDbContext = _context.ClientCompanies.Include(c => c.City).Include(c => c.VatRegistration);
-            return View(await biEsProDbContext.ToListAsync());
+            var result = service.GetAllClientCompaniesAsync();
+            return View(await result);
         }
 
         // GET: ClientCompanies/Details/5
@@ -49,8 +52,8 @@ namespace BiEsPro.Web.Controllers
         // GET: ClientCompanies/Create
         public IActionResult Create()
         {
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id");
-            ViewData["VatRegistrationId"] = new SelectList(_context.VatSufixes, "Id", "Id");
+            ViewData["CityId"] = new SelectList(service.GetAllCitiesAsync().Result, "Id", "Name");
+            ViewData["VatRegistrationId"] = new SelectList(service.GetAllVatSufixesAsync().Result, "Id", "Name");
             return View();
         }
 

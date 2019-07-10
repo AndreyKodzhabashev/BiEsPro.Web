@@ -16,6 +16,7 @@ using BiEsPro.Data;
 using BiEsPro.Data.Models;
 using BiEsPro.Web.Extensions;
 using BiEsPro.Services.ItemsService;
+using BiEsPro.Services.ClientCompaniesService;
 
 namespace BiEsPro.Web
 {
@@ -55,6 +56,7 @@ namespace BiEsPro.Web
                 options.Password.RequiredUniqueChars = 0;
             });
             services.AddTransient<IItemsService, ItemsService>();
+            services.AddTransient<IClientCompaniesService, ClientCompaniesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
