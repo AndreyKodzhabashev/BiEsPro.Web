@@ -19,4 +19,10 @@
     <ProjectReference Include="..\BiEsPro.Services\BiEsPro.Services.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Models\BindingMoldels\ClientCompany\" />
+    <Folder Include="Models\ViewModels\ClientCompany\" />
+  </ItemGroup>
+
 </Project>

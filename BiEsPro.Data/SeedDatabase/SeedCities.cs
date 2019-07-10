@@ -12,7 +12,7 @@ namespace BiEsPro.Data.SeedDatabase
         {
             using (var context = (BiEsProDbContext)app.ApplicationServices.CreateScope().ServiceProvider.GetService(typeof(BiEsProDbContext)))
             {
-                if (context.Colors.Any() == false)
+                if (context.Cities.Any() == false)
                 {
                     await context.Cities.AddAsync(new City { Name = "Sofia" });
                     await context.Cities.AddAsync(new City { Name = "Plovdiv" });

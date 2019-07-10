@@ -12,7 +12,7 @@ namespace BiEsPro.Data.SeedDatabase
         {
             using (var context = (BiEsProDbContext)app.ApplicationServices.CreateScope().ServiceProvider.GetService(typeof(BiEsProDbContext)))
             {
-                if (context.Colors.Any() == false)
+                if (context.VatSufixes.Any() == false)
                 {
                     await context.VatSufixes.AddAsync(new VatSufix { Name = "NotRegistered" });
                     await context.VatSufixes.AddAsync(new VatSufix { Name = "BG" });
