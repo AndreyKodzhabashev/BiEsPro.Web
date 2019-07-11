@@ -22,7 +22,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\BindingMoldels\ClientCompany\" />
     <Folder Include="Models\ViewModels\ClientCompany\" />
   </ItemGroup>
 

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BiEsPro.Data;
 using BiEsPro.Data.Models.ClientElements;
 using BiEsPro.Services.ClientCompaniesService;
+using BiEsPro.Web.Models.BindingMoldels.ClientCompany;
+using AutoMapper;
 
 namespace BiEsPro.Web.Controllers
 {
@@ -15,11 +17,15 @@ namespace BiEsPro.Web.Controllers
     {
         private readonly BiEsProDbContext _context;
         private readonly IClientCompaniesService service;
+        private readonly IMapper mapper;
 
-        public ClientCompaniesController(BiEsProDbContext context, IClientCompaniesService service)
+        public ClientCompaniesController(BiEsProDbContext context, 
+                                         IClientCompaniesService service,
+                                         IMapper mapper)
         {
             _context = context;
             this.service = service;
+            this.mapper = mapper;
         }
 
         // GET: ClientCompanies
@@ -62,16 +68,17 @@ namespace BiEsPro.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id,CreatedOn,ModifiedOn,IsDeleted,DeletedOn")] ClientCompany clientCompany)
+        public async Task<IActionResult> Create([Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id")] ClientCompanyCreateBindingModel clientCompany)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(clientCompany);
-                await _context.SaveChangesAsync();
+                var currentCompany = mapper.Map<ClientCompany>(clientCompany);
+                await service.CreateClientCompanyAsync(currentCompany);
+               
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", clientCompany.CityId);
-            ViewData["VatRegistrationId"] = new SelectList(_context.VatSufixes, "Id", "Id", clientCompany.VatRegistrationId);
+            ViewData["CityId"] = new SelectList(service.GetAllCitiesAsync().Result, "Id", "Name", clientCompany.CityId);
+            ViewData["VatRegistrationId"] = new SelectList(service.GetAllVatSufixesAsync().Result, "Id", "Name", clientCompany.VatRegistrationId);
             return View(clientCompany);
         }
 

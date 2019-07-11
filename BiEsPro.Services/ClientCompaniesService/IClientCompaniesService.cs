@@ -1,4 +1,5 @@
 ﻿using BiEsPro.Data.Dtos.ClientCompanies;
+using BiEsPro.Data.Models.ClientElements;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,7 @@ namespace BiEsPro.Services.ClientCompaniesService
         Task<IEnumerable<CitiesDto>> GetAllCitiesAsync();
 
         Task<IEnumerable<VatSufixesDto>> GetAllVatSufixesAsync();
+
+        Task CreateClientCompanyAsync(ClientCompany company);
     }
 }

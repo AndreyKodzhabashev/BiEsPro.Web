@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BiEsPro.Data;
 using BiEsPro.Data.Dtos.ClientCompanies;
+using BiEsPro.Data.Models.ClientElements;
 
 namespace BiEsPro.Services.ClientCompaniesService
 {
@@ -15,6 +16,12 @@ namespace BiEsPro.Services.ClientCompaniesService
         public ClientCompaniesService(BiEsProDbContext context)
         {
             this.context = context;
+        }
+
+        public async Task CreateClientCompanyAsync(ClientCompany company)
+        {
+            await context.AddAsync(company);
+            await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CitiesDto>> GetAllCitiesAsync()
