@@ -9,6 +9,7 @@ using BiEsPro.Data;
 using BiEsPro.Data.Models.ItemElements;
 using BiEsPro.Services.ItemsService;
 using BiEsPro.Web.Models.BindingMoldels.Item;
+using AutoMapper;
 
 namespace BiEsPro.Web.Controllers
 {
@@ -16,12 +17,15 @@ namespace BiEsPro.Web.Controllers
     {
         private readonly BiEsProDbContext _context;
         private readonly IItemsService service;
+        private readonly IMapper mapper;
 
         public ItemsController(BiEsProDbContext context,
-                               IItemsService service)
+                               IItemsService service,
+                               IMapper mapper )
         {
             this._context = context;
             this.service = service;
+            this.mapper = mapper;
         }
 
         // GET: Items
@@ -69,16 +73,19 @@ namespace BiEsPro.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentItem = new Item()
-                {
-                    Brand = item.Brand,
-                    Model = item.Model,
-                    Code = item.Code,
-                    ItemTypeId = item.ItemTypeId,
-                    ColorId = item.ColorId,
-                    Quantity = item.Quantity,
-                    Price = item.Price
-                };
+
+                //var currentItem = new Item()
+                //{
+                //    Brand = item.Brand,
+                //    Model = item.Model,
+                //    Code = item.Code,
+                //    ItemTypeId = item.ItemTypeId,
+                //    ColorId = item.ColorId,
+                //    Quantity = item.Quantity,
+                //    Price = item.Price
+                //};
+
+                var currentItem = mapper.Map<Item>(item);
 
                 await service.CreateItemAsync(currentItem);
 
