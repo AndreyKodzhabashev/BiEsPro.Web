@@ -93,7 +93,7 @@ namespace BiEsPro.Services.ItemsService
 
         public bool ItemExists(string id)
         {
-            var result = context.Items.Any(x => x.Id == id);
+            var result = context.Items.Any(x => x.Id == id && x.IsDeleted == false);
             return result;
         }
     }

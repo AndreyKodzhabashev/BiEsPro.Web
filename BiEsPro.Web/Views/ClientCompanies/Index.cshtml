@@ -1,52 +1,51 @@
 ﻿@model IEnumerable<BiEsPro.Data.Dtos.ClientCompanies.AllClientCompaniesDto>
 
-    @{
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+}
 
-    <h2>Index</h2>
+<h2>Index</h2>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ContactPerson)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Owner)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsVatReg)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Bulstat)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BIC)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IBAN)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsVatReg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bulstat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BIC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IBAN)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -60,6 +59,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Owner)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsVatReg)
+                    </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Bulstat)
                 </td>
@@ -78,6 +80,6 @@
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

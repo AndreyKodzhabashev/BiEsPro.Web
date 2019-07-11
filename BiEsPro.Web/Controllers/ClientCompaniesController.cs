@@ -35,25 +35,25 @@ namespace BiEsPro.Web.Controllers
             return View(await result);
         }
 
-        // GET: ClientCompanies/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: ClientCompanies/Details/5
+        //public async Task<IActionResult> Details(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var clientCompany = await _context.ClientCompanies
-                .Include(c => c.City)
-                .Include(c => c.VatRegistration)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (clientCompany == null)
-            {
-                return NotFound();
-            }
+        //    var clientCompany = await _context.ClientCompanies
+        //        .Include(c => c.City)
+        //        .Include(c => c.VatRegistration)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (clientCompany == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(clientCompany);
-        }
+        //    return View(clientCompany);
+        //}
 
         // GET: ClientCompanies/Create
         public IActionResult Create()
@@ -68,7 +68,7 @@ namespace BiEsPro.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id")] ClientCompanyCreateBindingModel clientCompany)
+        public async Task<IActionResult> Create([Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id")] CreateClientCompanyBindingModel clientCompany)
         {
             if (ModelState.IsValid)
             {
@@ -90,13 +90,15 @@ namespace BiEsPro.Web.Controllers
                 return NotFound();
             }
 
-            var clientCompany = await _context.ClientCompanies.FindAsync(id);
-            if (clientCompany == null)
+            var clientCompanyDto = await service.FindClientCompanyAsync(id);
+            if (clientCompanyDto == null)
             {
                 return NotFound();
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", clientCompany.CityId);
-            ViewData["VatRegistrationId"] = new SelectList(_context.VatSufixes, "Id", "Id", clientCompany.VatRegistrationId);
+            var clientCompany = mapper.Map<EditClientCompanyBindingModel>(clientCompanyDto);
+
+            ViewData["CityId"] = new SelectList(service.GetAllCitiesAsync().Result, "Id", "Name", clientCompany.CityId);
+            ViewData["VatRegistrationId"] = new SelectList(service.GetAllVatSufixesAsync().Result, "Id", "Name", clientCompany.VatRegistrationId);
             return View(clientCompany);
         }
 
@@ -105,7 +107,7 @@ namespace BiEsPro.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id,CreatedOn,ModifiedOn,IsDeleted,DeletedOn")] ClientCompany clientCompany)
+        public async Task<IActionResult> Edit(string id, [Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id")] EditClientCompanyBindingModel clientCompany)
         {
             if (id != clientCompany.Id)
             {
@@ -116,12 +118,14 @@ namespace BiEsPro.Web.Controllers
             {
                 try
                 {
-                    _context.Update(clientCompany);
+                    var currentCompany = mapper.Map<ClientCompany>(clientCompany);
+
+                    _context.Update(currentCompany);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientCompanyExists(clientCompany.Id))
+                    if (!service.ClientCompanyExists(clientCompany.Id))
                     {
                         return NotFound();
                     }
@@ -162,15 +166,14 @@ namespace BiEsPro.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var clientCompany = await _context.ClientCompanies.FindAsync(id);
-            _context.ClientCompanies.Remove(clientCompany);
-            await _context.SaveChangesAsync();
+            await service.DeleteClientCompanyAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientCompanyExists(string id)
-        {
-            return _context.ClientCompanies.Any(e => e.Id == id);
-        }
+        //private bool ClientCompanyExists(string id)
+        //{
+        //    return _context.ClientCompanies.Any(e => e.Id == id);
+        //}
     }
 }

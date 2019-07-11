@@ -29,8 +29,7 @@ namespace BiEsPro.Data.Dtos.ClientCompanies
 
         [Display(Name = "EIK number")]
         public string Eik { get; set; }
-
-
+        
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

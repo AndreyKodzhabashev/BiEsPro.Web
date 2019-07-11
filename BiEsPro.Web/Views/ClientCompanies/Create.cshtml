@@ -1,4 +1,4 @@
-﻿@model BiEsPro.Data.Models.ClientElements.ClientCompany
+﻿@model BiEsPro.Web.Models.BindingMoldels.ClientCompany.CreateClientCompanyBindingModel
 
 @{
     ViewData["Title"] = "Create";
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label"></label>
-                <select asp-for="CityId" class ="form-control" asp-items="ViewBag.CityId"></select>
+                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="VatRegistrationId" class="control-label"></label>
-                <select asp-for="VatRegistrationId" class ="form-control" asp-items="ViewBag.VatRegistrationId"></select>
+                <select asp-for="VatRegistrationId" class="form-control" asp-items="ViewBag.VatRegistrationId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Bulstat" class="control-label"></label>
@@ -66,28 +66,6 @@
                 <input asp-for="IBAN" class="form-control" />
                 <span asp-validation-for="IBAN" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="CreatedOn" class="control-label"></label>
-                <input asp-for="CreatedOn" class="form-control" />
-                <span asp-validation-for="CreatedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedOn" class="control-label"></label>
-                <input asp-for="ModifiedOn" class="form-control" />
-                <span asp-validation-for="ModifiedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeletedOn" class="control-label"></label>
-                <input asp-for="DeletedOn" class="form-control" />
-                <span asp-validation-for="DeletedOn" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

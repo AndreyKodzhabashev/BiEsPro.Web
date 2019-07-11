@@ -16,5 +16,11 @@ namespace BiEsPro.Services.ClientCompaniesService
         Task<IEnumerable<VatSufixesDto>> GetAllVatSufixesAsync();
 
         Task CreateClientCompanyAsync(ClientCompany company);
+
+        Task<ClientCompanyDto> FindClientCompanyAsync(string id);
+
+        Task DeleteClientCompanyAsync(string id);
+
+        bool ClientCompanyExists(string id);
     }
 }

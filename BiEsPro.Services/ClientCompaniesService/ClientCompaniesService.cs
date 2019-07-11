@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using BiEsPro.Data;
 using BiEsPro.Data.Dtos.ClientCompanies;
 using BiEsPro.Data.Models.ClientElements;
@@ -12,16 +13,41 @@ namespace BiEsPro.Services.ClientCompaniesService
     public class ClientCompaniesService : IClientCompaniesService
     {
         private readonly BiEsProDbContext context;
+        private readonly IMapper mapper;
 
-        public ClientCompaniesService(BiEsProDbContext context)
+        public ClientCompaniesService(BiEsProDbContext context,
+                                      IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task CreateClientCompanyAsync(ClientCompany company)
         {
             await context.AddAsync(company);
             await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteClientCompanyAsync(string id)
+        {
+            var company = await context.ClientCompanies.FindAsync(id);
+            company.IsDeleted = true;
+            company.DeletedOn = DateTime.UtcNow;
+            context.ClientCompanies.Update(company);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<ClientCompanyDto> FindClientCompanyAsync(string id)
+        {
+            var company = await context.ClientCompanies.FindAsync(id);
+            if (company == null)
+            {
+                return null;
+            }
+
+            var result = mapper.Map<ClientCompanyDto>(company);
+            return result;
+
         }
 
         public async Task<IEnumerable<CitiesDto>> GetAllCitiesAsync()
@@ -41,6 +67,7 @@ namespace BiEsPro.Services.ClientCompaniesService
 
         public async Task<IEnumerable<AllClientCompaniesDto>> GetAllClientCompaniesAsync()
         {
+
             var result = Task.Run(() => context
                                         .ClientCompanies
                                         .Where(x => x.IsDeleted == false)
@@ -53,11 +80,11 @@ namespace BiEsPro.Services.ClientCompaniesService
                                             CompleteAddress = x.CompleteAddress,
                                             Email = x.Email,
                                             IBAN = x.IBAN,
-                                            IsVatReg = (x.VatRegistration.Name == ServicesConstants.NotRegistered) ? true : false,
+                                            IsVatReg = (x.VatRegistration.Name == ServicesConstants.NotRegistered) == false,
                                             Name = x.Name,
                                             Owner = x.Owner,
                                             PhoneNumber = x.PhoneNumber,
-                                            Eik = x.VatRegistration.Name == ServicesConstants.NotRegistered ? "N/A" : x.Eik
+                                            Eik = x.VatRegistration.Name
                                         }).ToList());
 
             return await result;
@@ -76,6 +103,12 @@ namespace BiEsPro.Services.ClientCompaniesService
                                         .ToList());
 
             return await result;
+        }
+
+        public bool ClientCompanyExists(string id)
+        {
+            var result = context.ClientCompanies.Any(x => x.Id == id && x.IsDeleted == false);
+            return result;
         }
     }
 }
