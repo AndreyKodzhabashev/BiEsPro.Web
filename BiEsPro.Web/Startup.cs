@@ -19,6 +19,7 @@ using BiEsPro.Services.ItemsService;
 using BiEsPro.Services.ClientCompaniesService;
 using AutoMapper;
 using BiEsPro.Web.Mapper;
+using System.Reflection;
 
 namespace BiEsPro.Web
 {
@@ -57,7 +58,7 @@ namespace BiEsPro.Web
                 options.Password.RequiredLength = 3;
                 options.Password.RequiredUniqueChars = 0;
             });
-            services.AddAutoMapper();
+            services.AddAutoMapper(Assembly.GetEntryAssembly());
             services.AddTransient<IItemsService, ItemsService>();
             services.AddTransient<IClientCompaniesService, ClientCompaniesService>();
 
