@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,13 +40,27 @@ namespace BiEsPro.Services.ClientCompaniesService
 
         public async Task<ClientCompanyDto> FindClientCompanyAsync(string id)
         {
-            var company = await context.ClientCompanies.FindAsync(id);
+            var company = context.ClientCompanies.Include(x => x.City).Include(x => x.VatRegistration).FirstOrDefault(x => x.Id == id);
             if (company == null)
             {
                 return null;
             }
+            ;
+            var result = new ClientCompanyDto {
+            Address = company.Address,
+            BIC = company.BIC,
+            Bulstat = company.Bulstat,
+            City = company.City.Name,
+            Name = company.Name,
+            CityId = company.CityId,
+            ContactPerson = company.ContactPerson,
+            Email = company.Email,
+            IBAN = company.IBAN,
+            Owner = company.Owner,
+            PhoneNumber = company.PhoneNumber,
+            VatRegistrationId = company.VatRegistrationId,
+            VatRegistration = company.VatRegistration.Name};
 
-            var result = mapper.Map<ClientCompanyDto>(company);
             return result;
 
         }

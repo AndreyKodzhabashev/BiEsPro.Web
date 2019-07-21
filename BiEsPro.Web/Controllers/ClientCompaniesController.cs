@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using BiEsPro.Data;
-using BiEsPro.Data.Models.ClientElements;
-using BiEsPro.Services.ClientCompaniesService;
-using BiEsPro.Web.Models.BindingMoldels.ClientCompany;
-using AutoMapper;
-
-namespace BiEsPro.Web.Controllers
+﻿namespace BiEsPro.Web.Controllers
 {
+    using AutoMapper;
+    using BiEsPro.Data;
+    using BiEsPro.Data.Models.ClientElements;
+    using BiEsPro.Services.ClientCompaniesService;
+    using BiEsPro.Web.Models.BindingMoldels.ClientCompany;
+    using BiEsPro.Web.Models.ViewModels.Item;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
+
     public class ClientCompaniesController : Controller
     {
         private readonly BiEsProDbContext _context;
@@ -68,7 +66,7 @@ namespace BiEsPro.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN,Id")] CreateClientCompanyBindingModel clientCompany)
+        public async Task<IActionResult> Create([Bind("Name,CityId,Address,PhoneNumber,ContactPerson,Owner,VatRegistrationId,Bulstat,Email,BIC,IBAN")] CreateClientCompanyBindingModel clientCompany)
         {
             if (ModelState.IsValid)
             {
@@ -136,8 +134,8 @@ namespace BiEsPro.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", clientCompany.CityId);
-            ViewData["VatRegistrationId"] = new SelectList(_context.VatSufixes, "Id", "Id", clientCompany.VatRegistrationId);
+            ViewData["CityId"] = new SelectList(service.GetAllCitiesAsync().Result, "Id", "Name", clientCompany.CityId);
+            ViewData["VatRegistrationId"] = new SelectList(service.GetAllVatSufixesAsync().Result, "Id", "Name", clientCompany.VatRegistrationId);
             return View(clientCompany);
         }
 
@@ -149,15 +147,17 @@ namespace BiEsPro.Web.Controllers
                 return NotFound();
             }
 
-            var clientCompany = await _context.ClientCompanies
-                .Include(c => c.City)
-                .Include(c => c.VatRegistration)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var clientCompany = await _context.ClientCompanies.Include(x=>x.City).Include(x=>x.VatRegistration).FirstOrDefaultAsync(x=>x.Id == id);
             if (clientCompany == null)
             {
                 return NotFound();
             }
+            //var itemDeleteModel = new ItemDeleteViewModel {
+            //Address = clientCompany.Address,
+            //Id = clientCompany.};
 
+           // ItemDeleteViewModel company = mapper.Map<ItemDeleteViewModel>(clientCompany);
+            ;
             return View(clientCompany);
         }
 
