@@ -1,4 +1,5 @@
 ﻿using BiEsPro.Data.Common.Models;
+using BiEsPro.Data.Models.OrderElements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,11 @@ namespace BiEsPro.Data.Models.ItemElements
 {
     public class Item : BaseModel
     {
+        public Item()
+        {
+            this.Orders = new List<OrdersItems>();
+        }
+
         [Required(AllowEmptyStrings = false)]
         public string Brand { get; set; }
 
@@ -36,5 +42,8 @@ namespace BiEsPro.Data.Models.ItemElements
 
         [NotMapped]
         public decimal TotalPrice => this.Quantity * this.Price;
+
+        [NotMapped]
+        public IEnumerable<OrdersItems> Orders { get; set; }
     }
 }
